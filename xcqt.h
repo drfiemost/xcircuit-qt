@@ -56,7 +56,7 @@ inline int DisplayWidth(int) { return QApplication::desktop()->width(); }
 inline int DisplayHeight(int) { return QApplication::desktop()->height(); }
 void DrawArc(QPainter*, int x, int y, unsigned int w, unsigned int h, int a1, int a2);
 void FillPolygon(QPainter*, XPoint *points, int npoints);
-void XClearArea(Window w, int x, int y, unsigned w, unsigned h, bool exposures);
+void XClearArea(Window win, int x, int y, unsigned w, unsigned h, bool exposures);
 void SetForeground(QPainter*, unsigned long foreground);
 void SetFunction(QPainter*, int function);
 int XTextWidth(XFontStruct *font_struct, const char *string, int count);

@@ -1746,7 +1746,7 @@ TextExtents ULength(const label * drawlabel, objinstptr localinst,
 	    if (((eventmode == CATALOG_MODE) && !xobjs.showtech)
 			|| ((eventmode == CATTEXT_MODE)
 			&& (drawlabel != TOLABEL(EDITPART)))) {
-                char *nsptr = strstr((const char*)textptr, "::");
+                const char *nsptr = strstr((const char*)textptr, "::");
 		if (nsptr != NULL) {
                    textptr = (u_char*)nsptr + 2;
                    locpos += (char*)nsptr - (char*)strptr->data.string + 2;
