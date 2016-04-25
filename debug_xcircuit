@@ -1,0 +1,2 @@
+XCIRCUIT_LIB_DIR=./lib XCIRCUIT_SRC_DIR=./lib ./xcircuit
+
