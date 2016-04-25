@@ -404,13 +404,11 @@ void docommand()
 
 int installowncmap()
 {
-   Colormap newcmap;
-
    Fprintf(stdout, "Installing my own colormap\n");
 
    /* allocate a new colormap */
 
-   newcmap = XCopyColormapAndFree(cmap);
+   Colormap newcmap = XCopyColormapAndFree(cmap);
    if (newcmap == (Colormap)NULL) return (-1);
    cmap = newcmap;
    return(1);
@@ -424,10 +422,8 @@ int installowncmap()
 
 void makecursors()
 {
-   QRgb fgcolor, bgcolor;
-
-   bgcolor = BACKGROUND;
-   fgcolor = FOREGROUND;
+   QRgb bgcolor = BACKGROUND;
+   QRgb fgcolor = FOREGROUND;
 
    ARROW = XCreatePixmapCursor(CreateBitmapFromData(arrow_bits,
         arrow_width, arrow_height), CreateBitmapFromData(arrowmask_bits,
@@ -470,12 +466,12 @@ void makecursors()
 
 void delete_window(XCWindowData *window)
 {
-   XCWindowData *searchwin, *lastwin = NULL;
-
    if (xobjs.windowlist->next == NULL) {
       quitcheck(NULL, NULL, NULL);
       return;
    }
+
+   XCWindowData *searchwin, *lastwin = NULL;
 
    for (searchwin = xobjs.windowlist; searchwin != NULL; searchwin =
 		searchwin->next) {
@@ -513,9 +509,7 @@ void delete_window(XCWindowData *window)
 
 XCWindowData *create_new_window()
 {
-   XCWindowData *newwindow;
-
-   newwindow = new XCWindowData;
+   XCWindowData *newwindow = new XCWindowData;
 
    /* Prepend to linked window list in global data (xobjs) */
    newwindow->next = xobjs.windowlist;
@@ -574,8 +568,6 @@ XCWindowData::XCWindowData()
 
 void pre_initialize()
 {
-   short i, page;
-
    /*-------------------------------------------------------------*/
    /* Force LC_NUMERIC locale to en_US for decimal point = period */
    /* notation.  The environment variable LC_NUMERIC overrides if */
@@ -600,7 +592,7 @@ void pre_initialize()
 
    version = PROG_VERSION;
    aliastop = NULL;
-   for (page = 0; page < PAGES; page++) {
+   for (short page = 0; page < PAGES; page++) {
       xobjs.pagelist.append(Pagedata());
       xobjs.pagelist[page].pageinst = NULL;
    }
@@ -644,7 +636,7 @@ void pre_initialize()
    xobjs.numlibs = LIBS - LIBRARY - 1;
    xobjs.fontlib.number = 0;
    xobjs.userlibs = new Library[xobjs.numlibs];
-   for (i = 0; i < xobjs.numlibs; i++) {
+   for (short i = 0; i < xobjs.numlibs; i++) {
       xobjs.userlibs[i].library = (objectptr *) malloc(sizeof(objectptr));
       xobjs.userlibs[i].instlist = NULL;
       xobjs.userlibs[i].number = 0;
@@ -691,10 +683,9 @@ UpdateStringOfHandle(objPtr)
     Tcl_Obj *objPtr;   /* Int object whose string rep to update. */
 {
     char buffer[TCL_INTEGER_SPACE];
-    int len;
 
     sprintf(buffer, "H%08lX", objPtr->internalRep.longValue);
-    len = strlen(buffer);
+    int len = strlen(buffer);
 
     objPtr->bytes = Tcl_Alloc((u_int)len + 1);
     strcpy(objPtr->bytes, buffer);
@@ -841,9 +832,7 @@ Tcl_Obj *
 Tcl_NewHandleObj(optr)
     void *optr;      /* Int used to initialize the new object. */
 {
-    Tcl_Obj *objPtr;
-
-    objPtr = Tcl_NewObj();
+    Tcl_Obj *objPtr = Tcl_NewObj();
     objPtr->bytes = NULL;
 
     objPtr->internalRep.longValue = (long)(optr);

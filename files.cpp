@@ -623,10 +623,9 @@ FILE *fileopen(const QString &filename, const char *suffix, QString *name_return
 
 FILE *libopen(const QString &libname, short mode, QString *name_return)
 {
-   FILE *file = NULL;
    const char *suffix = (mode == FONTENCODING) ? ".xfe" : ".lps";
 
-   file = common_open(libname, suffix, xobjs.libsearchpath, name_return);
+   FILE *file = common_open(libname, suffix, xobjs.libsearchpath, name_return);
 
    if (!file && xobjs.libsearchpath.isEmpty()) {
       /* if not found in cwd and there is no library search	  */

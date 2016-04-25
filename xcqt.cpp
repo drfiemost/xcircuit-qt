@@ -945,8 +945,6 @@ static void createToolbar(QToolBar* toolbar)
 
 XCWindowData *GUI_init(int *argc, char *argv[])
 {
-   XCWindowData *newwin;
-
    QApplication * app = new QApplication(*argc, argv);
 
    for (int i = 0; i < STIPPLES; i++) {
@@ -961,7 +959,7 @@ XCWindowData *GUI_init(int *argc, char *argv[])
 
    setupAppData();
 
-   newwin = create_new_window();
+   XCWindowData *newwin = create_new_window();
 
    /* toplevel */
    top = new QWidget();
@@ -1065,14 +1063,13 @@ XCWindowData *GUI_init(int *argc, char *argv[])
 
 int main(int argc, char **argv)
 {
-   char  *argv0;		/* find root of argv[0] */
    short k = 0;
 
    /*-----------------------------------------------------------*/
    /* Find the root of the command called from the command line */
    /*-----------------------------------------------------------*/
 
-   argv0 = strrchr(argv[0], '/');
+   char *argv0 = strrchr(argv[0], '/');
    if (argv0 == NULL)
       argv0 = argv[0];
    else
