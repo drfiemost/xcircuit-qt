@@ -6,7 +6,6 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
-#include <QProcessEnvironment>
 #include <QTemporaryFile>
 #include <QAction>
 
@@ -630,12 +629,11 @@ FILE *libopen(const QString &libname, short mode, QString *name_return)
    file = common_open(libname, suffix, xobjs.libsearchpath, name_return);
 
    if (!file && xobjs.libsearchpath.isEmpty()) {
-      QProcessEnvironment env;
       /* if not found in cwd and there is no library search	  */
       /* path, look for environment variable "XCIRCUIT_LIB_DIR"	  */
       /* defined (Thanks to Ali Moini, U. Adelaide, S. Australia) */
 
-      const QString libdir = env.value("XCIRCUIT_LIB_DIR");
+      const QString libdir(qgetenv("XCIRCUIT_LIB_DIR"));
       if (!libdir.isEmpty()) file = common_open(libname, suffix, QStringList(libdir), name_return);
 
       /* last resort:  hard-coded directory BUILTINS_DIR */
